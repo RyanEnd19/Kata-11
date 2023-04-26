@@ -1,43 +1,35 @@
 package jm.task.core.jdbc;
 
+import jm.task.core.jdbc.dao.UserDao;
+import jm.task.core.jdbc.dao.UserDaoJDBCImpl;
 import jm.task.core.jdbc.model.User;
-import jm.task.core.jdbc.service.UserService;
-import jm.task.core.jdbc.service.UserServiceImpl;
 
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        UserService userService = new UserServiceImpl();
+        UserDao userDao = new UserDaoJDBCImpl();
 
-        // Создание таблицы пользователей
-        userService.createUsersTable();
+        userDao.createUsersTable();
 
+        userDao.saveUser("Ivan", "Ivanov", (byte) 30);
+        System.out.println("User с именем - Ivan добавлен в базу данных");
 
-        userService.saveUser("Иван", "Иванов", (byte) 25);
-        System.out.println("User с именем Иван добавлен в базу данных");
+        userDao.saveUser("Petr", "Petrov", (byte) 35);
+        System.out.println("User с именем - Petr добавлен в базу данных");
 
-        userService.saveUser("Петр", "Петров", (byte) 30);
-        System.out.println("User с именем Петр добавлен в базу данных");
+        userDao.saveUser("Sergey", "Sergeev", (byte) 25);
+        System.out.println("User с именем - Sergey добавлен в базу данных");
 
-        userService.saveUser("Сергей", "Сергеев", (byte) 35);
-        System.out.println("User с именем Сергей добавлен в базу данных");
+        userDao.saveUser("Nikolay", "Nikolaev", (byte) 45);
+        System.out.println("User с именем - Nikolay добавлен в базу данных");
 
-        userService.saveUser("Алексей", "Алексеев", (byte) 40);
-        System.out.println("User с именем Алексей добавлен в базу данных");
-
-        // Получение всех пользователей из базы и вывод в консоль
-        List<User> users = userService.getAllUsers();
+        List<User> users = userDao.getAllUsers();
         for (User user : users) {
             System.out.println(user);
         }
 
-        // Очистка таблицы пользователей
-        userService.cleanUsersTable();
-
-        // Удаление таблицы пользователей
-        userService.dropUsersTable();
-
-
+        userDao.cleanUsersTable();
+        userDao.dropUsersTable();
     }
 }
