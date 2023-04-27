@@ -16,15 +16,12 @@ public class UserDaoJDBCImpl implements UserDao {
     private static final String GET_ALL_USERS_QUERY = "SELECT * FROM users";
     private static final String CLEAN_USERS_TABLE_QUERY = "TRUNCATE TABLE users";
 
-    Connection connection;
+    private Connection connection;
 
-    {
-        try {
-            connection = DatabaseUtil.getConnection();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    public UserDaoJDBCImpl() throws SQLException {
+        connection = DatabaseUtil.getConnection();
     }
+
 
     @Override
     public void createUsersTable() {
